@@ -38,12 +38,12 @@ public class Restaurant {
         this.rating = rating;
     }
 
-    public String getAddress() {
-        return address;
+    public String getLocation() {
+        return location;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Instant getCreatedAt() {
@@ -54,8 +54,17 @@ public class Restaurant {
         this.createdAt = createdAt;
     }
 
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     private String name;
     private double rating;
-    private String address;
+    private String location;
     private Instant createdAt;
+    private Instant updatedAt;
 }

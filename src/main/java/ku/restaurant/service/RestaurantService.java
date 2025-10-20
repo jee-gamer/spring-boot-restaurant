@@ -1,5 +1,6 @@
 package ku.restaurant.service;
 
+import ku.restaurant.dto.RestaurantRequest;
 import ku.restaurant.entity.Restaurant;
 import ku.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,14 @@ public class RestaurantService {
         return repository.findAll();
     }
 
-    public Restaurant create(Restaurant restaurant) {
+    public Restaurant create(RestaurantRequest request) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setName(request.getName());
+        restaurant.setRating(request.getRating());
+        restaurant.setLocation(request.getLocation());
+
         restaurant.setCreatedAt(Instant.now());
+        restaurant.setUpdatedAt(restaurant.getCreatedAt());
         Restaurant record = repository.save(restaurant);
         return record;
     }
@@ -38,7 +45,7 @@ public class RestaurantService {
         Restaurant record = repository.findById(id).get();
         record.setName(requestBody.getName());
         record.setRating(requestBody.getRating());
-        record.setAddress(requestBody.getAddress());
+        record.setLocation(requestBody.getLocation());
 
         record = repository.save(record);
         return record;
@@ -54,8 +61,8 @@ public class RestaurantService {
         return repository.findByName(name);
     }
 
-    public List<Restaurant> getRestaurantByAddress(String address) {
-        return repository.findByAddressIgnoreCase(address);
+    public List<Restaurant> getRestaurantByLocation(String location) {
+        return repository.findByLocationIgnoreCase(location);
     }
 
 

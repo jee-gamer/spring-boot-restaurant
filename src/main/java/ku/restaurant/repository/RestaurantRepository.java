@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface RestaurantRepository extends JpaRepository<Restaurant, UUID> {
 
     Restaurant findByName(String name);
-    List<Restaurant> findByAddressIgnoreCase(String address);
+    List<Restaurant> findByLocationIgnoreCase(String location);
 }
