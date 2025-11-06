@@ -6,6 +6,8 @@ import ku.restaurant.dto.RestaurantRequest;
 import ku.restaurant.entity.Restaurant;
 import ku.restaurant.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -23,8 +25,8 @@ public class RestaurantService {
         this.repository = repository;
     }
 
-    public List<Restaurant> getAll() {
-        return repository.findAll();
+    public Page<Restaurant> getRestaurantsPage(PageRequest pageRequest) {
+        return repository.findAll(pageRequest);
     }
 
     public Restaurant create(RestaurantRequest request) {
