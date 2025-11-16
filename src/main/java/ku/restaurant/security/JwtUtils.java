@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class JwtUtils {
@@ -21,6 +23,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     private SecretKey key;
+    private final Map<String, String> tokenStore = new ConcurrentHashMap<>();
 
     // Initializes the key after the class is instantiated and
     // the jwtSecret is injected, preventing the repeated creation
@@ -32,12 +35,18 @@ public class JwtUtils {
     }
     // Generate JWT token
     public String generateToken(String username) {
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(key, Jwts.SIG.HS256)
                 .compact();
+        tokenStore.put(token, username);
+        return token;
+
+    }
+    public void invalidateToken(String token) {
+        tokenStore.remove(token);
     }
     // Get username from JWT token
     public String getUsernameFromToken(String token) {
