@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ export default function Login() {
     }
 
     return (
-        <div style={{ padding: 20 }}>
+        <div style={{padding: 20}}>
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <input
@@ -46,6 +47,9 @@ export default function Login() {
 
                 <button type="submit">Login</button>
             </form>
+
+            <h2>Google Login</h2>
+            <GoogleLoginButton/>
         </div>
     );
 }
